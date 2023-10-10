@@ -21,6 +21,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['name'] = user.username
+        # token['email'] = user.email
         # ...
 
         return token
+
+# can be used to create custom TokenObtainPairView inheriting TokenObtainPairView
+# here i have configured the MyTokenObtainPairSerializer at settings.py instead of TokenObtainPairSerializer
+# check settings.py - SIMPLE_JWT object
+#
+# class MyTokenObtainPairView(TokenObtainPairView):
+#     serializer_class = MyTokenObtainPairSerializer
