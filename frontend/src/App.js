@@ -4,15 +4,19 @@ import PrivateRoute from './utils/PrivateRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Header from './components/Header';
+import AuthContext, { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
       <Router>
-        <Header/>
-        <PrivateRoute Component={HomePage} path='/' exact/>
-        <Routes>          
-          <Route Component={LoginPage} path='/login'/>
-        </Routes>
+        <AuthProvider>
+          <Header/>
+          <PrivateRoute Component={HomePage} path='/' exact/>
+          <Routes>          
+            <Route Component={LoginPage} path='/login'/>
+          </Routes>
+        </AuthProvider>
+        
       </Router>
     
   );
