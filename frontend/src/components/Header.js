@@ -9,8 +9,10 @@ const Header = () => {
         <div>
             <Link to='/'>Home</Link>
             <span> | </span>
-            <Link to='/login'>Login</Link>
-            { user && <p>Hello {user.username}</p> }
+            {user ? 
+                <p>Logout</p>            
+                : <Link to='/login'>Login</Link> }
+            {user && <p>Hello {user.username}</p> }
             
         </div>
     )
