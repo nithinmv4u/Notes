@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export default AuthContext;
 
@@ -59,11 +59,12 @@ export const AuthProvider = ({children}) => {
     }
 
     useEffect(() =>{
+        const fourMinutes = 1000 * 60 * 4;
         const interval = setInterval(() => {
             if(authToken){
                 updateToken()
             }
-        }, 2000);
+        }, fourMinutes);
         return () => clearInterval(interval);
     },[authToken,loading])
 

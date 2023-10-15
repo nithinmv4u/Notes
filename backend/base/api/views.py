@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from base.models import Notes
+from .serializers import NotesSerializer
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -13,6 +15,12 @@ def getRoutes(request):
     ]
 
     return Response(routes)
+
+@api_view(['GET'])
+def getNotes(request):
+    notes = Notes.objects.all()
+    serializer = NotesSerializer(notes, many=True)
+    return Response(serializer.data)
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
