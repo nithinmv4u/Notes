@@ -14,13 +14,13 @@ const HomePage = () => {
             method : 'GET',
             headers : {
                 'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer ' + String(authToken.access),
+                'Authorization' : 'Bearer ' + String(authToken?.access),
             },
         })
         const data = await response.json()
-        if(response.status === 200){
+        if(response?.status === 200){
             setNotes(data)
-        }else if(response.statusText === "Unauthorized"){
+        }else if(response?.statusText === "Unauthorized"){
             logoutUser()
         }
         
@@ -38,7 +38,7 @@ const HomePage = () => {
             <p>Homepage</p>
             <ul>
                 { notes.map((note) =>(
-                        <li key={note.id}>Item : { note.body }</li>
+                        <li key={note?.id}>Item : { note?.body }</li>
                 ))}
             </ul>
         </div>

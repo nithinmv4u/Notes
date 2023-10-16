@@ -50,7 +50,7 @@ export const AuthProvider = ({children}) => {
             body : JSON.stringify({'refresh' : authToken?.refresh}),
         })
         let data = await response.json()
-        if(response.status === 200){
+        if(response?.status === 200){
             setUser(jwt_decode(data.access));
             setAuthToken(data);
             localStorage.setItem('authtoken', JSON.stringify(data))
