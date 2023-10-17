@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import jwt_decode from "jwt-decode";
+import axiosInstance from "../utils/axiosInstance";
 
 const HomePage = () => {
     const {authToken, logoutUser} = useContext(AuthContext)
@@ -8,22 +9,30 @@ const HomePage = () => {
     console.log(notes);
     console.log("access HomePage",jwt_decode(authToken.access));
 
-    const getNotes = async () => {
-        console.log("get notes frontend");
-        const response = await fetch('http://127.0.0.1:8000/api/notes/', {
-            method : 'GET',
-            headers : {
-                'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer ' + String(authToken?.access),
-            },
-        })
-        const data = await response.json()
-        if(response?.status === 200){
-            setNotes(data)
-        }else if(response?.statusText === "Unauthorized"){
-            logoutUser()
+    // const getNotes = async () => {
+    //     console.log("get notes frontend");
+    //     const response = await fetch('http://127.0.0.1:8000/api/notes/', {
+    //         method : 'GET',
+    //         headers : {
+    //             'Content-Type' : 'application/json',
+    //             'Authorization' : 'Bearer ' + String(authToken?.access),
+    //         },
+    //     })
+    //     const data = await response.json()
+    //     if(response?.status === 200){
+    //         setNotes(data)
+    //     }else if(response?.statusText === "Unauthorized"){
+    //         logoutUser()
+    //     }
+    // }
+
+    const getNotes = async() => {
+        console.log("get Notes");
+        const response = await axiosInstance.get('/api/notes/');
+        console.log("response : ",response);
+        if(response.status === 200){
+            setNotes(response.data)
         }
-        
     }
 
     useEffect(() => {
