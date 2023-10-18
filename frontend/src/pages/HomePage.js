@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import jwt_decode from "jwt-decode";
-import axiosInstance from "../utils/axiosInstance";
+// import axiosInstance from "../utils/axiosInstance";
+import useAxios from "../utils/useAxios";
 
 const HomePage = () => {
     const {authToken, logoutUser} = useContext(AuthContext)
     const [notes, setNotes] = useState([]);
+    const api = useAxios()
+
     console.log(notes);
     console.log("access HomePage",jwt_decode(authToken.access));
 
@@ -28,10 +31,12 @@ const HomePage = () => {
 
     const getNotes = async() => {
         console.log("get Notes");
-        const response = await axiosInstance.get('/api/notes/');
+        const response = await api.get('/api/notes/');
         console.log("response : ",response);
         if(response.status === 200){
             setNotes(response.data)
+        }else{
+            logoutUser();
         }
     }
 

@@ -191,3 +191,5 @@ CORS_ALLOW_HEADERS = [
     'content-type',
     # Add other allowed headers as needed
 ]
+
+CORS_ALLOW_CREDENTIALS = True
